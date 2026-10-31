@@ -17,19 +17,21 @@ Funciona em **Intel (x86_64)** e **Apple Silicon (arm64)**
 
 O aplicativo é gerado pelo GitHub Actions em uma máquina macOS na nuvem, sem exigir que você instale o Xcode no seu computador
 
-### Como baixar o app pronto
+### Como gerar uma versão
 
 1. Abra [**Actions**](https://github.com/Chimpi-hackintosh/ChimpiNotch/actions)
 2. Selecione **Compilar ChimpiNotch para macOS**
-3. Logado como **Chimpi-hackintosh**, escolha a branch `main` e clique em **Run workflow** → **Run workflow**
-4. Abra a execução concluída com sucesso ✅
-5. Na seção **Artifacts**, baixe **ChimpiNotch-macOS-Universal**
-6. Extraia o ZIP baixado e depois o `ChimpiNotch-macOS-Universal.zip` que está dentro para obter o `ChimpiNotch.app`
-7. No Mac, mova o aplicativo para **Aplicativos**
+3. Na conta **Chimpi-hackintosh**, escolha a branch `main` e clique em **Run workflow**
+4. Aguarde a execução terminar com sucesso ✅
 
-Somente a conta `Chimpi-hackintosh` pode executar a etapa que gera o aplicativo. Depois que a execução terminar com sucesso, o ZIP fica disponível em **Artifacts**
+Quando a compilação concluir, **o próprio GitHub Actions criará uma versão em [Releases](https://github.com/Chimpi-hackintosh/ChimpiNotch/releases)**, com o arquivo `ChimpiNotch-macOS-Universal.zip` para baixar
 
-> **Importante:** o `.app` só fica disponível **depois que o workflow terminar com sucesso**. O GitHub Actions não disponibiliza automaticamente esse arquivo em *Releases*
+A numeração é gerada por execução, como `v1.0.3`, e o ZIP inclui o `ChimpiNotch.app` para **Intel e Apple Silicon**
+
+**Somente a conta `Chimpi-hackintosh` está autorizada a executar o job** e o workflow não inicia automaticamente ao receber novos commits
+
+> O release só é criado **depois que a compilação terminar sem erros**. Não há nenhuma versão compilada garantida antes disso
+
 
 ## Como funciona
 
