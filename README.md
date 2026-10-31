@@ -13,21 +13,21 @@ Widget flutuante para **macOS 13+**, perto da câmera/notch do MacBook, com trê
 
 Funciona em **Intel (x86_64)** e **Apple Silicon (arm64)**
 
-## 🚀 O GitHub compila automaticamente
+## 🚀 Compilação manual pelo GitHub Actions
 
-**Você não precisa ter um Mac nem instalar o Xcode para compilar**: o GitHub Actions usa uma máquina macOS na nuvem para criar o aplicativo `ChimpiNotch.app`
+**Só o proprietário `Chimpi-hackintosh` inicia a compilação quando quiser** pela aba Actions. Não existe compilação automática por push, commit ou atualização de arquivos. O GitHub Actions usa uma máquina macOS na nuvem, então você não precisa de um Mac nem do Xcode instalado no seu computador
 
 ### Como baixar o app pronto
 
 1. Abra [**Actions**](https://github.com/Chimpi-hackintosh/ChimpiNotch/actions)
 2. Selecione **Compilar ChimpiNotch para macOS**
-3. Se necessário, clique em **Run workflow** → **Run workflow**
+3. Logado como **Chimpi-hackintosh**, escolha a branch `main` e clique em **Run workflow** → **Run workflow**
 4. Abra a execução concluída com sucesso ✅
 5. Na seção **Artifacts**, baixe **ChimpiNotch-macOS-Universal**
 6. Extraia o ZIP baixado e depois o `ChimpiNotch-macOS-Universal.zip` que está dentro para obter o `ChimpiNotch.app`
 7. No Mac, mova o aplicativo para **Aplicativos**
 
-O workflow também compila automaticamente sempre que o código é atualizado na branch `main`, e disponibiliza o ZIP como artefato da execução
+**A execução é exclusivamente manual** (`workflow_dispatch`). O workflow também verifica o nome de usuário de quem o acionou: se não for `Chimpi-hackintosh`, os passos de compilação serão ignorados. Após uma execução bem-sucedida, o ZIP aparece como artefato no GitHub Actions
 
 > **Importante:** o `.app` só fica disponível **depois que o workflow terminar com sucesso**. O GitHub Actions não disponibiliza automaticamente esse arquivo em *Releases*
 
@@ -47,6 +47,6 @@ O ChimpiNotch é um app nativo em **SwiftUI + AppKit**, com painel flutuante (NS
 - `Sources/ChimpiNotch.swift`: interface e atalhos
 - `Config/Info.plist`: metadados do app
 - `scripts/compilar-macos.sh`: compila Intel + Apple Silicon, assina e gera ZIP
-- `.github/workflows/compilar-macos.yml`: workflow executado pelo **GitHub**
+- `.github/workflows/compilar-macos.yml`: workflow de execução **manual** pelo proprietário no **GitHub Actions**
 
 Feito por **Chimpi-hackintosh** 🍎
