@@ -1,20 +1,16 @@
 name: Compilar ChimpiNotch para macOS
 
+# Execução exclusivamente manual pela aba Actions do GitHub
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - 'Sources/**'
-      - 'Config/**'
-      - 'scripts/**'
-      - '.github/workflows/compilar-macos.yml'
 
 permissions:
   contents: read
 
 jobs:
   build:
+    # Somente a conta proprietária pode executar os passos de compilação
+    if: ${{ github.actor == 'Chimpi-hackintosh' }}
     name: Gerar app universal
     runs-on: macos-15
     steps:
