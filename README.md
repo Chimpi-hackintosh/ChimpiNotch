@@ -1,57 +1,52 @@
-# ChimpiNotch 🍎
+# 🍎 ChimpiNotch
 
-**ChimpiNotch** é uma barra flutuante para macOS, na região da câmera/notch, com atalhos para **navegadores, Contatos e Câmera**
-
-> Descrição curta para o GitHub: 🍎 Widget flutuante para macOS com navegadores, Contatos e Câmera perto do notch | SwiftUI + AppKit
-
-## Interface
+Widget flutuante para **macOS 13+**, perto da câmera/notch do MacBook, com três atalhos:
 
 ```text
-┌──────────────────────────────────────────────────────────────┐
-│ 🌐 Chrome / outros navegadores │ 👤 Contatos │ 📷 Câmera │
-└──────────────────────────────────────────────────────────────┘
+[ 🌐 Chrome / Outros navegadores | 👤 Contatos | 📷 Câmera ]
 ```
 
-## Funcionalidades
+- **Navegadores:** escolha Chrome, Safari, Firefox, Edge e outros que estiverem instalados
+- **Contatos:** abre o aplicativo Contatos do macOS
+- **Câmera:** abre o Photo Booth
+- **Barra de menus:** permite mostrar, esconder e centralizar o painel
 
-- **Navegadores:** oferece Chrome, Safari, Firefox, Edge, Brave, Opera e Arc quando encontrados no Mac
-- **Contatos:** abre o aplicativo Contatos
-- **Câmera:** abre o Photo Booth (não ativa a webcam em segundo plano)
-- **Notch:** painel centralizado perto do topo, abaixo da área protegida pelo recorte quando necessário
-- **Menu do macOS:** mostrar/esconder, recentralizar e sair
+Funciona em **Intel (x86_64)** e **Apple Silicon (arm64)**
 
-**Requisitos:** macOS 13 ou posterior, processador Intel ou Apple Silicon
+## 🚀 O GitHub compila automaticamente
 
-## Abrir no Xcode
+**Você não precisa ter um Mac nem instalar o Xcode para compilar**: o GitHub Actions usa uma máquina macOS na nuvem para criar o aplicativo `ChimpiNotch.app`
 
-1. Abra `ChimpiNotch.xcodeproj`
-2. Escolha **My Mac**
-3. Clique em ▶ **Run**
+### Como baixar o app pronto
 
-## Compilar sem abrir Xcode
-
-Em um Mac com as ferramentas de desenvolvimento da Apple instaladas, abra `compilar.command` ou rode:
-
-```bash
-bash scripts/compilar-macos.sh
-```
-
-Saídas esperadas: `build/ChimpiNotch.app` e `build/ChimpiNotch-macOS-Universal.zip`
-
-## Compilar no GitHub Actions
-
-1. Abra a aba [Actions](https://github.com/Chimpi-hackintosh/ChimpiNotch/actions)
+1. Abra [**Actions**](https://github.com/Chimpi-hackintosh/ChimpiNotch/actions)
 2. Selecione **Compilar ChimpiNotch para macOS**
-3. Clique em **Run workflow** na branch `main`
-4. Após a compilação, abra a execução e baixe o artefato **ChimpiNotch-macOS-Universal**
-5. Extraia o ZIP do artefato e depois `ChimpiNotch-macOS-Universal.zip` para obter o aplicativo `.app`
+3. Se necessário, clique em **Run workflow** → **Run workflow**
+4. Abra a execução concluída com sucesso ✅
+5. Na seção **Artifacts**, baixe **ChimpiNotch-macOS-Universal**
+6. Extraia o ZIP baixado e depois o `ChimpiNotch-macOS-Universal.zip` que está dentro para obter o `ChimpiNotch.app`
+7. No Mac, mova o aplicativo para **Aplicativos**
 
-O workflow também roda automaticamente quando arquivos relevantes são enviados à branch `main`
+O workflow também compila automaticamente sempre que o código é atualizado na branch `main`, e disponibiliza o ZIP como artefato da execução
 
-## Segurança e funcionamento
+> **Importante:** o `.app` só fica disponível **depois que o workflow terminar com sucesso**. O GitHub Actions não disponibiliza automaticamente esse arquivo em *Releases*
 
-O ChimpiNotch é um **app nativo com NSPanel**, não um widget WidgetKit que se desenha por cima da câmera física. A opção **Câmera** abre o Photo Booth. O pacote é assinado de modo ad-hoc e **não é notarizado pela Apple**, então o macOS pode solicitar uma confirmação de segurança ao executar
+## Como funciona
 
-**O código-fonte não é um executável pronto:** a compilação precisa terminar com sucesso em macOS para produzir o `.app`
+O ChimpiNotch é um app nativo em **SwiftUI + AppKit**, com painel flutuante (NSPanel). A barra é posicionada na parte superior da tela, logo abaixo da área segura da câmera/notch. Não ocupa fisicamente o recorte da câmera e não grava áudio ou vídeo
 
-Desenvolvido para o projeto **ChimpiNotch**, da conta [Chimpi-hackintosh](https://github.com/Chimpi-hackintosh)
+## Segurança
+
+- Não precisa de senha nem chave de API
+- O build é assinado **ad-hoc**, sem certificado Apple Developer
+- O `.app` **não está notarizado** pela Apple, portanto o macOS pode pedir confirmação ao abrir
+- Código-fonte e workflow de compilação ficam visíveis neste repositório
+
+### Código
+
+- `Sources/ChimpiNotch.swift`: interface e atalhos
+- `Config/Info.plist`: metadados do app
+- `scripts/compilar-macos.sh`: compila Intel + Apple Silicon, assina e gera ZIP
+- `.github/workflows/compilar-macos.yml`: workflow executado pelo **GitHub**
+
+Feito por **Chimpi-hackintosh** 🍎
