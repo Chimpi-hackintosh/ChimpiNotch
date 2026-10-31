@@ -1,0 +1,50 @@
+name: Compilar ChimpiNotch para macOS
+
+# O workflow só inicia pelo botão "Run workflow" do proprietário
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Compilar macOS e publicar no Releases
+    if: ${{ github.actor == 'Chimpi-hackintosh' }}
+    runs-on: macos-15
+    steps:
+      - name: Baixar arquivos do ChimpiNotch
+        uses: actions/checkout@v4
+
+      - name: Mostrar versões das ferramentas
+        run: |
+          xcodebuild -version
+          xcrun swiftc --version
+
+      - name: Compilar app para Intel e Apple Silicon
+        shell: bash
+        run: bash scripts/compilar-macos.sh
+
+      - name: Verificar o app universal
+        shell: bash
+        run: |
+          xcrun lipo -info "build/ChimpiNotch.app/Contents/MacOS/ChimpiNotch"
+          codesign --verify --verbose "build/ChimpiNotch.app"
+          test -s "build/ChimpiNotch-macOS-Universal.zip"
+
+      - name: Publicar no meu GitHub Releases
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          TAG="v1.0.${GITHUB_RUN_NUMBER}"
+          ZIP="build/ChimpiNotch-macOS-Universal.zip"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" "$ZIP" --clobber
+          else
+            gh release create "$TAG" "$ZIP" \
+              --target "$GITHUB_SHA" \
+              --title "ChimpiNotch $TAG" \
+              --notes "Aplicativo universal para macOS 13+ (Intel e Apple Silicon). Build do GitHub Actions. Assinatura ad-hoc, sem notarização Apple."
+          fi
