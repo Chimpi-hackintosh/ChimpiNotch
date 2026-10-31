@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build:
@@ -32,3 +32,15 @@ jobs:
           name: ChimpiNotch-macOS-Universal
           path: build/ChimpiNotch-macOS-Universal.zip
           if-no-files-found: error
+
+      - name: Publicar automaticamente no GitHub Releases
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="v1.0.${GITHUB_RUN_NUMBER}"
+          ZIP="build/ChimpiNotch-macOS-Universal.zip"
+          test -s "$ZIP"
+          gh release create "$TAG" "$ZIP" \
+            --target "$GITHUB_SHA" \
+            --title "ChimpiNotch $TAG" \
+            --notes "ChimpiNotch para macOS 13+ (Intel e Apple Silicon). Compilado pelo GitHub Actions na execução #${GITHUB_RUN_NUMBER}. ZIP com o aplicativo .app; assinatura ad-hoc, sem notarização."
