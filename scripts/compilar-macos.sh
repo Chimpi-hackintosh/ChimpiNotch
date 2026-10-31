@@ -12,7 +12,7 @@ rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
 cp Config/Info.plist "$APP/Contents/Info.plist"
 for ARCH in x86_64 arm64; do
-  xcrun swiftc -O -sdk "$SDK" -target "$ARCH-apple-macos13.0" \
+  xcrun swiftc -parse-as-library -O -sdk "$SDK" -target "$ARCH-apple-macos13.0" \
     Sources/ChimpiNotch.swift -framework AppKit -framework SwiftUI \
     -o "$OUT/ChimpiNotch-$ARCH"
 done
