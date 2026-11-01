@@ -52,3 +52,7 @@ O ChimpiNotch é um app nativo em **SwiftUI + AppKit**, com painel flutuante (NS
 - `.github/workflows/compilar-macos.yml`: gera o aplicativo no **GitHub Actions**
 
 Feito por **Chimpi-hackintosh** 🍎
+
+## Aviso de suporte
+
+Aviso traduzido, data de 04/11/2026, versões e limites de distribuição em [SUPPORT.md](SUPPORT.md)
