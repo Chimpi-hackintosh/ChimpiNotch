@@ -26,7 +26,7 @@ O aplicativo é gerado pelo GitHub Actions em uma máquina macOS na nuvem, sem e
 
 Quando a compilação concluir, **o próprio GitHub Actions criará uma versão em [Releases](https://github.com/Chimpi-hackintosh/ChimpiNotch/releases)**, com o arquivo `ChimpiNotch-macOS-Universal.zip` para baixar
 
-A numeração é gerada por execução, como `v1.0.3`, e o ZIP inclui o `ChimpiNotch.app` para **Intel e Apple Silicon**
+A Release pública mais recente conferida é [`v1.0.4`](https://github.com/Chimpi-hackintosh/ChimpiNotch/releases/tag/v1.0.4), e o ZIP inclui o `ChimpiNotch.app` para **Intel e Apple Silicon**
 
 **Somente a conta `Chimpi-hackintosh` está autorizada a executar o job** e o workflow não inicia automaticamente ao receber novos commits
 
