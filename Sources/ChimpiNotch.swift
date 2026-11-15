@@ -135,6 +135,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         center()
         window.orderFrontRegardless()
         setupMenu()
+        SupportNotice.check()
         NotificationCenter.default.addObserver(
             self, selector: #selector(recenter),
             name: NSApplication.didChangeScreenParametersNotification,
